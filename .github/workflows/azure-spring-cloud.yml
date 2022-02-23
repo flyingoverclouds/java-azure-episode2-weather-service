@@ -1,0 +1,35 @@
+name: Build and deploy to Azure Spring Cloud
+
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: 11
+        check-latest: false
+        cache: 'maven'
+    - name: Build with Maven
+      run: mvn package -DskipTests
+    - name: Login to Azure Spring Cloud
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Get Subscription ID
+      run: |
+        echo "SUBSCRIPTION_ID=$(az account show --query id --output tsv --only-show-errors)" >> $GITHUB_ENV
+      shell: bash
+    - name: Deploy to Azure Spring Cloud
+      uses: azure/spring-cloud-deploy@v1
+      with:
+        action: deploy
+        azure-subscription: ${{ env.SUBSCRIPTION_ID }}
+        service-name: azsprcl-niclerc
+        app-name: weather-service
+        use-staging-deployment: false
+        package: target/demo-0.0.1-SNAPSHOT.jar
