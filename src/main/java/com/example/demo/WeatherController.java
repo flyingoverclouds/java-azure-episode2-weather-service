@@ -16,7 +16,7 @@ public class WeatherController {
     @GetMapping("/city")
     public @ResponseBody Weather getWeatherForCity(@RequestParam("name") String cityName) {
         return weatherRepository.findById(cityName).map(weather -> {
-            weather.setDescription("Le soleil est à la porte du Webinaire Azure-Spring-Cloud");
+            weather.setDescription("Le soleil chaud est à la porte du Webinaire Azure-Spring-Cloud");
             weather.setIcon("weather-sunny");
             return weather;
         }).get();
