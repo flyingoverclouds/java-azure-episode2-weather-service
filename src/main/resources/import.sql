@@ -1,0 +1,2 @@
+INSERT INTO `azure-spring-cloud-training`.`weather` (`city`, `description`, `icon`) VALUES ('Seattle, USA', 'Very cloudy!', 'weather-fog');
+INSERT INTO `azure-spring-cloud-training`.`weather` (`city`, `description`, `icon`) VALUES ('Lyon, France', 'Il fait beau!', 'weather-sunny');
