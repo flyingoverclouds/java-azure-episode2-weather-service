@@ -1,4 +1,5 @@
 package com.example.demo;
+/*  Commentaire */
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
